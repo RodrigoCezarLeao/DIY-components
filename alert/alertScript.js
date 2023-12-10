@@ -44,7 +44,7 @@ function growEffect(div, effectSecs, messageTime){
 
     for(let i=0; i < parts; i++){
         setTimeout(() => {            
-            div.style.transform = `scale(${init + (slice/parts/100 * i)})`;
+            div.style.transform = `scale(${init + (slice/parts * i)})`;
         }, i*slice);
             console.log("🚀 ~ file: alertScript.js:49 ~ setTimeout ~ init + (slice/parts):", init + (slice/parts))
     }
