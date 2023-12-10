@@ -23,43 +23,45 @@ function myAlert(message){
          
 
     
-
-    // setInterval(() => {
-    //     div.style.transform = "scale(1)";
-    // }, 2000);
-    
     div.innerHTML = message;
     
     document.body.appendChild(div);
-    growEffect(div, 2, 5);
+    growEffect(div, 0.2);
+    shrinkEffect(div, 0.2, 5);
 
 }
 
 
-function growEffect(div, effectSecs, messageTime){
+function growEffect(div, effectSecs){
     let parts = 100;
     let init = 0.8;
-    let slice = (effectSecs * 1000 / parts);
-    console.log("🚀 ~ file: alertScript.js:43 ~ growEffect ~ slice:", slice)
-
+    let slice = (1 - init)/parts;
+    let timeSlice = (effectSecs*1000)/parts;
+    
     for(let i=0; i < parts; i++){
         setTimeout(() => {            
-            div.style.transform = `scale(${init + (slice/parts * i)})`;
-        }, i*slice);
-            console.log("🚀 ~ file: alertScript.js:49 ~ setTimeout ~ init + (slice/parts):", init + (slice/parts))
+            let value = init + (slice * i);            
+            div.style.transform = `scale(${value})`;
+        }, i*timeSlice);
     }
 
     // setTimeout(() => {shrinkEffect(div, effectSecs )}, ( messageTime) * 1000);
     // setTimeout(() => {div.style.display = "none"}, (effectSecs/2 + messageTime) * 1000);
 }
-function shrinkEffect(div, effectSecs){
+function shrinkEffect(div, effectSecs, messageSecs){
     let parts = 100;
     let init = 0.8;
+    let slice = (1 - init)/parts;
+    let timeSlice = (effectSecs*1000)/parts;
+    
     for(let i=parts; i > 0; i--){
-        setTimeout(() => {
-            let valueToScale = ((1 - init )/parts) * i
-            div.style.transform = `scale(${1 - valueToScale})`;            
-        }, i*effectSecs);
+        setTimeout(() => {            
+            let value = 1 - (slice * i);            
+            div.style.transform = `scale(${value})`;
+        }, i*timeSlice + (messageSecs * 1000));
+
+        if (i === 1)
+            setTimeout(() => {div.style.display = "none"}, i*timeSlice + (messageSecs * 1000) + (effectSecs * 1000) + 100);
     }
     
 }
