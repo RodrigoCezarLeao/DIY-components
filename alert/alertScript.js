@@ -1,8 +1,22 @@
-function myAlert(message){
+function myAlert(message, effectSecs, messageTime, type="error"){
+    let colorFont = "";
+    let colorBackground = "";
+
+    if (type === "error"){
+        colorBackground = "#e23636";
+        colorFont = "white;"
+    }else if (type === "warning"){
+        colorBackground = "#edb95e";
+        colorFont = "black";
+    }else if (type === "success"){
+        colorBackground = "#82dd55";
+        colorFont = "black";
+    }
+
     let div = document.createElement('div');
     div.style.width = '90%';
     div.style.height = '10vh';
-    div.style.background = "red";
+    div.style.background = colorBackground;
     div.style.position = "absolute";
     div.style.top = "0px";
     div.style.left = 0;
@@ -12,7 +26,7 @@ function myAlert(message){
     div.style.zIndex = 1000;
     div.style.boxShadow = "0px 0px 10px grey";
     div.style.opacity = 0.8;
-    div.style.color = "white";
+    div.style.color = colorFont;
     div.style.fontSize = "2em";
     div.style.padding =  "20px";
     div.style.cursor = "default";
@@ -26,8 +40,8 @@ function myAlert(message){
     div.innerHTML = message;
     
     document.body.appendChild(div);
-    growEffect(div, 0.2);
-    shrinkEffect(div, 0.2, 5);
+    growEffect(div, effectSecs);
+    shrinkEffect(div, effectSecs, messageTime);
 
 }
 
